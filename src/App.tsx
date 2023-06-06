@@ -1,3 +1,9 @@
+import { Header } from "./components/Header";
+
 export default function App() {
-  return <main className="text-center text-2xl">hello</main>;
+  return (
+    <>
+      <Header />
+    </>
+  );
 }
