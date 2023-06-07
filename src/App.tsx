@@ -4,6 +4,7 @@ import { Footer } from "./components/Footer";
 import { Header } from "./components/Header";
 import { Cat } from "./types";
 import { SAMPLE_DATA } from "./utils/sampleData";
+import { shuffleCards } from "./utils/shuffleCards";
 
 export default function App() {
   const [currentScore, setCurrentScore] = useState<number>(0);
@@ -17,9 +18,11 @@ export default function App() {
   });
 
   useEffect(() => {
+    const shuffledCards = shuffleCards(cards);
     const score = currentScore >= bestScore ? currentScore : bestScore;
     localStorage.setItem("playerBestScore", JSON.stringify(score));
     setBestScore(score);
+    setCards(shuffledCards);
   }, [currentScore]);
 
   function handleClick(id: string): void {
@@ -35,7 +38,7 @@ export default function App() {
   return (
     <>
       <Header currentScore={currentScore} bestScore={bestScore} />
-      <CardGrid cats={SAMPLE_DATA} onClick={handleClick} />
+      <CardGrid cats={cards} onClick={handleClick} />
       <Footer />
     </>
   );
